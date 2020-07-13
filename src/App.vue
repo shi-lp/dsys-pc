@@ -17,5 +17,6 @@ export default {
 </script>
 
 <style>
-
+@import url('./assets/css/base.css');
+@import url('./assets/css/normalize.css');
 </style>
