@@ -1,22 +1,21 @@
 <template>
   <div id="app">
-    <login></login>
+    <index>
+    </index>
   </div>
 </template>
 
 <script>
-
-import login from '@/view/login/login'
+import Index from '@/components/content/index/Index'
 
 export default {
   name: 'app',
   components: {
-    login
+    Index
   }
 }
 </script>
 
 <style>
 @import url('./assets/css/base.css');
-@import url('./assets/css/normalize.css');
 </style>
