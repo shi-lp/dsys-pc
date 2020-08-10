@@ -16,13 +16,15 @@ const VUser = () => import('@/views/business/user/VUser')
 const AuthInfo = () => import('@/components/content/business/auth/AuthInfo')
 // 角色管理
 const RoleList = () => import('@/components/content/business/role/RoleList')
+// 角色新增
+const RoleEdit = () => import('@/components/content/business/role/RoleEdit')
 
 Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: RoleList
+    component: RoleEdit
   },
   {
     path: '/base/',
@@ -53,6 +55,16 @@ const routes = [
     path: '/profile/authList',
     name: 'Auth',
     component: AuthInfo
+  },
+  {
+    path: '/profile/roleList',
+    name: 'Role',
+    component: RoleList
+  },
+  {
+    path: '/profile/roleEdit/:roleId',
+    name: 'RoleEdit',
+    component: RoleEdit
   }
 ]
 
