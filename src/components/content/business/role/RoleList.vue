@@ -1,11 +1,12 @@
 <template>
   <div>
-    <vxe-form :data="formData" title-align="right" title-width="100" @submit="submitEvent" prevent-submit title-colon>
+    <vxe-form :data="formData" title-align="right" title-width="100" prevent-submit title-colon>
       <vxe-form-item title="角色编号" field="roleCode" span="8" :item-render="{name: 'input', attrs: {placeholder: '请输入角色编码'}}"></vxe-form-item>
       <vxe-form-item title="角色名称" field="roleName" span="8" :item-render="{name: 'input', attrs: {placeholder: '请输入角色名称'}}"></vxe-form-item>
       <vxe-form-item title="启用状态" field="doFlag" span="8" :item-render="{name: '$select', options: doFlagList}"></vxe-form-item>
+      <vxe-form-item title="所属部门" field="deptId" span="8" :item-render="{name: '$select', options: deptList}"></vxe-form-item>
       <vxe-form-item align="right" span="24">
-        <vxe-button size="mini" type="submit" status="primary" >查询</vxe-button>
+        <vxe-button size="mini" type="submit" status="primary" @click="submitEvent" >查询</vxe-button>
         <vxe-button size="mini" type="reset">重置</vxe-button>
         <vxe-button size="mini" status="primary" @click="add">新增</vxe-button>
       </vxe-form-item>
@@ -49,7 +50,7 @@ export default {
         roleName: '',
         belongSys: '',
         doFlag: '0',
-        level: 0
+        deptId: ''
       },
       datas: [],
       border: true,
@@ -80,6 +81,9 @@ export default {
         { value: '0', label: '禁用' },
         { value: '1', label: '启用' },
         { value: '2', label: '被删除' }
+      ],
+      deptList: [
+        { value: '', label: '请选择部门' }
       ]
     }
   },
@@ -88,13 +92,13 @@ export default {
   },
   methods: {
     search () {
-      getRoleList(this.formData).then(res => {
-        this.datas = res.data.recoreds
+      getRoleList(this.tablePage.pageSize, this.tablePage.currentPage, this.formData).then(res => {
         console.log(res)
+        this.datas = res.data.records
       })
     },
     submitEvent () {
-      console.log(this.formData)
+      this.search()
     },
     add () {
       console.log()
