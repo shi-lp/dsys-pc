@@ -78,9 +78,9 @@ export default {
         }
       },
       doFlagList: [
-        { value: '0', label: '禁用' },
-        { value: '1', label: '启用' },
-        { value: '2', label: '被删除' }
+        { value: 'DISABLED', label: '禁用' },
+        { value: 'ENABLED', label: '启用' },
+        { value: 'DELETED', label: '被删除' }
       ],
       roleList: [
         { value: '', label: '请选择状态' }

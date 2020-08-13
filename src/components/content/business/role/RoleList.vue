@@ -5,11 +5,6 @@
       <vxe-form-item title="角色名称" field="roleName" span="8" :item-render="{name: 'input', attrs: {placeholder: '请输入角色名称'}}"></vxe-form-item>
       <vxe-form-item title="启用状态" field="doFlag" span="8" :item-render="{name: '$select', options: doFlagList}"></vxe-form-item>
       <vxe-form-item title="所属部门" field="deptId" span="8" :item-render="{name: '$select', options: deptList}"></vxe-form-item>
-      <vxe-form-item align="right" span="24">
-        <vxe-button size="mini" type="submit" status="primary" @click="submitEvent" >查询</vxe-button>
-        <vxe-button size="mini" type="reset">重置</vxe-button>
-        <vxe-button size="mini" status="primary" @click="add">新增</vxe-button>
-      </vxe-form-item>
     </vxe-form>
     <vxe-grid export-config :toolbar="tableToolbar" :show-header="true" :data="datas" :stripe="true"
      :border="border" :loading="loading" :align="align" :header-align="headerAlign"
@@ -17,6 +12,11 @@
      :pager-config="tablePage"
      @page-change="handlePageChange"
      >
+     <template v-slot:toolbar_buttons>
+        <vxe-button size="mini" type="submit" status="primary" @click="submitEvent" >查询</vxe-button>
+        <vxe-button size="mini" type="reset">重置</vxe-button>
+        <vxe-button size="mini" status="primary" @click="add">新增</vxe-button>
+      </template>
       <vxe-table-column type="seq" title="序号" width="60"></vxe-table-column>
       <vxe-table-column :visible="false" field="sId" title="主键"></vxe-table-column>
       <vxe-table-column title="操作" width="100" show-overflow>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getRoleList } from '@/network/profile/role/role'
+import { getRoleList, getDeptOption } from '@/network/profile/role/role'
 // 角色列表
 export default {
   name: 'RoleList',
@@ -49,8 +49,8 @@ export default {
         roleCode: '',
         roleName: '',
         belongSys: '',
-        doFlag: '0',
-        deptId: ''
+        doFlag: 'ENABLED',
+        deptId: '0'
       },
       datas: [],
       border: true,
@@ -78,33 +78,43 @@ export default {
         }
       },
       doFlagList: [
-        { value: '0', label: '禁用' },
-        { value: '1', label: '启用' },
-        { value: '2', label: '被删除' }
+        { value: 'DISABLED', label: '禁用' },
+        { value: 'ENABLED', label: '启用' },
+        { value: 'DELETED', label: '被删除' }
       ],
-      deptList: [
-        { value: '', label: '请选择部门' }
-      ]
+      deptList: []
     }
   },
   created () {
+    this.loadOption()
     this.search()
   },
   methods: {
+    loadOption () {
+      getDeptOption().then(res => {
+        if (res.code === 200) {
+          this.deptList = res.data
+          this.formData.deptId = res.data[0].value
+        }
+      })
+    },
     search () {
       getRoleList(this.tablePage.pageSize, this.tablePage.currentPage, this.formData).then(res => {
         console.log(res)
-        this.datas = res.data.records
+        if (res.code === 200) {
+          this.datas = res.data.records
+        }
       })
     },
     submitEvent () {
       this.search()
     },
     add () {
-      console.log()
+      this.$router.push('/profile/roleEdit/' + '-1')
     },
     editEvent (row) {
       console.log(row)
+      this.$router.push('/profile/roleEdit/' + row.sId)
     },
     delEvent (row) {
       console.log(row)

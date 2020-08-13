@@ -18,13 +18,15 @@ const AuthInfo = () => import('@/components/content/business/auth/AuthInfo')
 const RoleList = () => import('@/components/content/business/role/RoleList')
 // 角色新增
 const RoleEdit = () => import('@/components/content/business/role/RoleEdit')
+// 部门列表
+const DeptList = () => import('@/components/content/business/dept/DeptList')
 
 Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: RoleEdit
+    component: RoleList
   },
   {
     path: '/base/',
@@ -65,6 +67,11 @@ const routes = [
     path: '/profile/roleEdit/:roleId',
     name: 'RoleEdit',
     component: RoleEdit
+  },
+  {
+    path: '/profile/depts',
+    name: 'DeptList',
+    component: DeptList
   }
 ]
 

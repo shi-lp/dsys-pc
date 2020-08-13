@@ -207,7 +207,7 @@ export default {
 }
 ul.cus_tree_ul {
   padding-left: 16px;
-  /* background-image: url('../images/index.gif'); */
+  background-image: url('../../../assets/img/tree/arrow-right.png');
   background-position: 4px 10px;
   background-repeat: repeat-y;
 }
@@ -224,7 +224,8 @@ ul.cus_tree_ul li {
   width: 18px;
   height: 18px;
   margin-right: 6px;
-  background-image: url('../../../assets/img/zTreeStandard.png');
+  background-image: url('../../../assets/img/tree/arrow-down.png');
+  background-size: 33px 43px;
 }
 
 .cus_vtree_wrap
@@ -278,7 +279,7 @@ li:last-child .cus_item_content span.treeExpandBtn.btnclose {
   width: 14px;
   height: 14px;
   margin-right: 6px;
-  background-image: url('../../../assets/img/zTreeStandard.png');
+  background-image: url('../../../assets/img/tree/checkbox.png');
   background-position: -0px -0px;
 }
 .cus_item_content .cus_chekcbox.cus_chekcbox_checked {
@@ -305,7 +306,7 @@ ul.cus_tree_ul li .cus_item_content.active {
   width: 16px;
   height: 16px;
   margin-right: 6px;
-  background-image: url('../../../assets/img/zTreeStandard.png');
+  background-image: url('../../../assets/img/tree/arrow-down.png');
   background-position: -110px -0px;
 }
 .file {
@@ -313,7 +314,7 @@ ul.cus_tree_ul li .cus_item_content.active {
   width: 18px;
   height: 18px;
   margin-right: 6px;
-  background-image: url('../../../assets/img/zTreeStandard.png');
+  background-image: url('../../../assets/img/tree/arrow-down.png');
   background-position: -110px -30px;
 }
 </style>

@@ -410,8 +410,8 @@ ul.sidebar-menu li a.active i {
 .wrapper {
     display: inline-block;
     margin-top: 60px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 2px;
+    padding-right: 2px;
     padding-bottom: 15px;
     padding-top: 0px;
     width: 100%;
@@ -3337,7 +3337,7 @@ ul.chat-available-user li a:hover {
 }
 
 .site-min-height {
-    min-height: 900px;
+    min-height: 650px;
 }
 
 

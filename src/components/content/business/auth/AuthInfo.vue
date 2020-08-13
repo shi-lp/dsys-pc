@@ -82,15 +82,15 @@ export default {
         sId: '',
         authCode: '',
         authName: '',
-        doFlag: '0',
+        doFlag: 'ENABLED',
         modelId: '',
         authContext: '',
         doSide: '0'
       },
       doFlagList: [
-        { value: '0', label: '禁用' },
-        { value: '1', label: '启用' },
-        { value: '2', label: '被删除' }
+        { value: 'DISABLED', label: '禁用' },
+        { value: 'ENABLED', label: '启用' },
+        { value: 'DELETED', label: '被删除' }
       ],
       rules: {
         authCode: [

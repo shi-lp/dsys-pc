@@ -26,7 +26,7 @@
       <vxe-table-column field="parentName" title="上级名称" ></vxe-table-column>
       <vxe-table-column field="clientType" title="链接类型" >
         <template v-slot="{ row }">
-          <vxe-cell name="clientType">{{$store.getters.getDictName(row.clientType)}}</vxe-cell>
+          <div name="clientType"  v-if="row.clientType !== '' || row.clientType !== '1'">{{$store.getters.getDictName(row.clientType)}}</div>
         </template>
       </vxe-table-column>
       <vxe-table-column field="modelUrl" title="地址" ></vxe-table-column>

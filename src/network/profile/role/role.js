@@ -4,18 +4,17 @@ const baseUrl = '/base'
 
 // 获取角色列表
 export function getRoleList (pageSize, current, formData) {
-  console.log(formData)
   return request({
     url: baseUrl + '/roles',
     method: 'get',
     params: {
       pageSize: pageSize,
       current: current,
-      'r.doFlag': formData.doFlag,
-      'r.roleCode': formData.roleCode,
-      'r.roleName': formData.roleName,
+      'role.doFlag': formData.doFlag,
+      'role.roleCode': formData.roleCode,
+      'role.roleName': formData.roleName,
       // 'role.belongSys': formData.belongSys,
-      'r.deptId': formData.deptId
+      'role.deptId': formData.deptId
     }
   })
 }
@@ -43,6 +42,13 @@ export function validateCodeExist (code) {
 export function getRoleOne (roleId) {
   return request({
     url: baseUrl + '/roles/' + roleId,
+    method: 'get'
+  })
+}
+
+export function getDeptOption () {
+  return request({
+    url: baseUrl + '/depts/options',
     method: 'get'
   })
 }
