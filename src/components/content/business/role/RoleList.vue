@@ -30,7 +30,7 @@
       <vxe-table-column field="deptName" title="所属部门" ></vxe-table-column>
       <vxe-table-column field="belongSys" title="所属系统" >
         <template v-slot="{ row }">
-          <vxe-cell name="belongSys">{{$store.getters.getDictName(row.belongSys)}}</vxe-cell>
+          <div>{{$store.getters.getDictName(row.belongSys)}}</div>
         </template>
       </vxe-table-column>
       <vxe-table-column field="doFlag" title="启用状态" :cell-render="{name: 'doFlag'}"></vxe-table-column>

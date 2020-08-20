@@ -1,5 +1,6 @@
 import { request } from '@/network/request'
 
+const qs = require('qs')
 const baseUrl = '/base'
 
 // 获取角色列表
@@ -15,6 +16,9 @@ export function getRoleList (pageSize, current, formData) {
       'role.roleName': formData.roleName,
       // 'role.belongSys': formData.belongSys,
       'role.deptId': formData.deptId
+    },
+    paramsSerializer: function (params) {
+      return qs.stringify(params, { arrayFormat: 'repeat' })
     }
   })
 }
@@ -25,7 +29,11 @@ export function addRole (formData, checks) {
     url: baseUrl + '/roles',
     method: 'post',
     data: {
-
+      doFlag: formData.doFlag,
+      roleCode: formData.roleCode,
+      roleName: formData.roleName,
+      deptId: formData.deptId,
+      roleAuthList: checks
     }
   })
 }

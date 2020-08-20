@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vxe-form :data="formData" :rules="rules" title-align="right" title-width="100" prevent-submit title-colon>
+    <vxe-form :data="formData" :rules="rules" title-align="right" title-width="100" @submit="submitEvent"  title-colon>
       <vxe-form-item title="角色编号" field="roleCode" span="12" :item-render="{name: 'input', attrs: {placeholder: '请输入角色编码'}}"></vxe-form-item>
       <vxe-form-item title="角色名称" field="roleName" span="12" :item-render="{name: 'input', attrs: {placeholder: '请输入角色名称'}}"></vxe-form-item>
       <vxe-form-item title="启用状态" field="doFlag" span="12" :item-render="{name: '$select', options: doFlagList}"></vxe-form-item>
@@ -11,12 +11,12 @@
           show-checkbox
           ref="tree"
           node-key="authCode"
-          :default-checked-keys="checkedKeys"
+          :default-checked-keys="checked"
           :props="defaultProps">
         </el-tree>
       </vxe-form-item>
       <vxe-form-item align="right" span="24">
-        <vxe-button size="mini" type="submit" status="primary" @click="submitEvent" >保存</vxe-button>
+        <vxe-button size="mini" type="submit" status="primary" >保存</vxe-button>
         <vxe-button size="mini" type="reset">重置</vxe-button>
       </vxe-form-item>
     </vxe-form>
@@ -31,11 +31,11 @@ import { addRole, validateCodeExist, getRoleOne, getDeptOption } from '@/network
 const validatePass = (cellValue) => {
   const vaildate = validateCodeExist(cellValue.itemValue)
   let isShow = false
-  return Promise.then((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     vaildate.then(res => {
       return new Promise((resolve, reject) => {
-        if (!res.data.responseStatus) {
-          isShow = !res.data.responseStatus
+        if (!res.responseStatus) {
+          isShow = !res.responseStatus
         }
         // 第er次网络请求
         resolve(isShow)
@@ -83,7 +83,8 @@ export default {
           { required: true, message: '请输入角色名称' }
         ]
       },
-      roleId: ''
+      roleId: '',
+      checked: []
     }
   },
   created () {
@@ -103,7 +104,6 @@ export default {
     },
     loadTree () {
       getAuthList().then(res => {
-        console.log(res)
         if (res.code === 200) {
           this.tableData = res.data
         }
@@ -112,20 +112,17 @@ export default {
     initData () {
       if (this.roleId !== '-1') {
         getRoleOne(this.roleId).then(res => {
-          console.log(res)
           if (res.code === 200) {
             this.formData = res.data
+            this.checked = res.data.roleAuthList
           }
         })
       }
     },
     submitEvent () {
       this.getCheckedNodes()
-      const defaultValue = []
-      this.checkedKeys.reduce(function (preValue, n) {
-        defaultValue.push(n.authCode)
-      }, defaultValue)
-      addRole(this.formData, this.checkedKeys).then(res => {
+      addRole(this.formData, this.checked).then(res => {
+        console.log(res)
         if (res.code === 200) {
           this.$message('保存成功')
           this.$router.go(-1)
@@ -134,6 +131,17 @@ export default {
     },
     getCheckedNodes () {
       this.checkedKeys = this.$refs.tree.getCheckedNodes()
+      this.forMate()
+    },
+    forMate () {
+      const defaultChecked = []
+      this.checkedKeys.forEach((item, index, arr) => {
+        defaultChecked.push({
+          roleCode: this.formData.roleCode,
+          authCode: item.authCode
+        })
+      })
+      this.checked = defaultChecked
     }
   }
 }

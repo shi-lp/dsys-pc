@@ -9,7 +9,7 @@
           <button slot="button-default" class="btn btn-primary"  @click="addDict('next')">新增下级</button>
           <button slot="button-default" class="btn btn-primary"  @click="addDict('current')">新增本级</button>
         </div>
-        <v-tree :treeData='datas' ref='vtree' @clickNode ='clickNode'></v-tree>
+        <v-tree :treeData='datas' ref='vtree' @clickNode ='clickNode' :checkBox="checkBox"></v-tree>
       </aside>
       <aside class="right-side">
         <info :info="dictInfo" :editType="editType" @addDictInfoCpn="addDictInfoCpn"></info>
@@ -32,6 +32,7 @@ export default {
   data () {
     return {
       datas: [],
+      checkBox: true,
       dictInfo: {
         type: Object,
         default: () => ({})
